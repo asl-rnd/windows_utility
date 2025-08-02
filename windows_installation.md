@@ -13,15 +13,15 @@ Before creating a bootable USB and installing Windows on your laptop, make sure 
 
     - `or`
 
-    - **Check current disk partition type:** (Gpt=UEFI, Mbr=Legacy)
-        - open terminal(admin) or powershell(admin) and type run the commnads: `diskpart` > `list disk`.
+    - #### Check current disk partition type: (Gpt=UEFI, Mbr=Legacy)
+        - open terminal(admin) or powershell(admin) and run the commnads: `diskpart` > `list disk`.
     
-    - **Decide the partition plan:**
+    - #### **Decide the partition plan:**
         - if the disk has * in Gpt, then the partition type supports **UEFI** bios system, hence the partition type will be **GPT**.
         - if the disk doesn't have * in Gpt, the partition type will be **MBR**.
 
 ### 🧰 3. Download ISO & Tools
 - Download the latest official Windows ISO ([Windows 11 ISO from Microsoft](https://www.microsoft.com/en-us/software-download/windows11)).
-- Use tools like **Rufus** or **Ventoy** to create a bootable USB.
+- Use tools like [**Rufus**](https://rufus.ie/en/) or [**Ventoy**](https://www.ventoy.net/en/download.html) to create a bootable USB.
     - usb pendrive must be of 8GB or more.
     - format the usb to **FAT32** for UEFI or **NTFS** for legacy BIOS before making it bootable.
