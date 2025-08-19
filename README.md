@@ -1,3 +1,3 @@
 # Windows Utility
-Windows Installation, Debloat,  Customization, and more
+Windows Installation, Activation, Debloat, Customization, and more
 ---
