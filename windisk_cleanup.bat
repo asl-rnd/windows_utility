@@ -35,4 +35,3 @@ del /s /q "%LocalAppData%\Microsoft\Windows\Explorer\thumbcache*"
 
 echo ----------------------------------
 echo [Done] Cleanup Completed!
-pause
