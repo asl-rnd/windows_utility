@@ -103,9 +103,9 @@
 </table>
 
 ### 💰API Costing (Pilot Scale)
-- Textract: ~$1.50 per 1,000 pages.
-- GPT-4.1: ~$0.03 per report (2 pages).
-- Embeddings: negligible (<$1 for pilot).<br>
+- **Textract:** ~$1.50 per 1,000 pages.
+- **GPT-4.1:** ~$0.03 per report (2 pages).
+- **Embeddings:** negligible (<$1 for pilot).<br>
     👉 Pilot (100 reports/month): ~$5–10.<br>
     👉 Medium (1,000 reports/month): ~$30–50.
 
