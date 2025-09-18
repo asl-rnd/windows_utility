@@ -1,7 +1,7 @@
 # 📅Project Development Timeline (AI Engineering and Backend Dev)
 
 ## Process Diagram
-![Process Diagram of the Project](flow_diagram_medical_assistant.png)
+![Process Diagram of the Project](medical_assistant(flow_diagram).png)
 
 ### Week 1–2 → Analysis & Design
 - **AI Engineering (Me):**
