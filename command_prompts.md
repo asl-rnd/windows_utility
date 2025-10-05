@@ -1,0 +1,166 @@
+# Change Partition Type
+There is an issue of partition confliction (GPT/MBR) during the windows installation often. We might mount the windows iso file in one partition type but the drive we intend to install windows might be in another partition type. In this situation we can change the drive partition type using command prompt from the installation process window. [`Note`] We can not change the partition type of the extarnal drive where we mount the windows iso file. Also it is time consuming to mount the iso again. It is better to be confirm the partition type of the intended drive earlier. Here, we will know - <br>
+1. How we can check the drive partion type (GPT / MBR) <br>
+2. How to change the partition type if it conflicts
+
+#### Checking Partition Type
+Open the `cmd` and type the commands one after one: 
+```
+diskpart 
+list disk
+```
+* `diskpart` will pop up another window, sometimes not
+* `list disk` will provide the details of every drive details
+* [NB] In the partition section '*' quoted drives are in GPT partition, non-'*' drives are in MBR partition
+
+#### Change Partition
+Open the `cmd` and type the commands one after one:
+```
+diskpart
+list disk
+select disk x (say 2) 
+clean
+convert GPT/MBR
+```
+---
+
+# Troubleshoot Windows
+Open the `cmd` and type the commands one after one:
+* **Universal Troubleshoot:** [if found corrept files, restart after complition]
+```
+sfc /scannow
+```
+* **Restore Health:** [restart after complition]
+```
+DISM /Online /Cleanup-Image /RestoreHealth
+```
+---
+
+# Activation (Windows and Office)
+Open the `cmd` as administrator, Run the script and follow the instruction:
+```
+irm https://get.activated.win | iex
+```
+---
+
+# Debloate Windows
+Open `cmd` and run the command:
+```
+irm www.christitus.com/win | iex
+```
+* It will open a new window, go to the tweeks part and apply any option you want. If you are not familier choose one from:
+* `Standard`: It debloates most of the services we usually not required
+* `Minimal`: It is a minimal option of standard debloat
+* You can customize the setting os both 'standard' and 'minimal' options if you know.
+
+---
+
+# PC Check Toolkit
+These all are PowerShell commands. Always run **PowerShell as Admin**, helpful for `winsat` and `chkdsk`.
+
+#### ✅ Get CPU Info
+```
+Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors, MaxClockSpeed
+```
+#### ✅ Get RAM Info
+```
+Get-CimInstance Win32_PhysicalMemory | Select-Object Capacity, Speed
+```
+#### ✅ Get GPU Info
+```
+Get-CimInstance Win32_VideoController | Select-Object Name, DriverVersion
+```
+#### ✅ Run Disk Benchmark (Basic)
+```
+winsat disk -drive c
+```
+#### ✅ Run Overall WinSAT Score
+```
+Get-CimInstance win32_winsat
+```
+#### ✅ Run Disk Health Check
+```
+chkdsk
+```
+---
+
+**Or, you can make a `.ps1` script with all these commands and run all at once:** save all the commands in one file with extensin (.ps1) and run the file in powershell.
+
+#### Save as CheckSystem.ps1:
+```
+Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors, MaxClockSpeed
+Get-CimInstance Win32_PhysicalMemory | Select-Object Capacity, Speed
+Get-CimInstance Win32_VideoController | Select-Object Name, DriverVersion
+winsat disk -drive c
+Get-CimInstance win32_winsat
+chkdsk
+```
+Then run the following command, this will let you run your own `.ps1` scripts. Because, by default, Windows blocks local scripts for security.
+```
+Set-ExecutionPolicy RemoteSigned
+```
+Then go to the folder the `.ps1` file is situated and run it. like -
+```
+cd "C:\Users\Abs_Sayem\Documents"
+.\CheckSystem.ps1
+```
+---
+
+# Bypass Microsoft Account while Windows Setup
+---
+
+### **🛠️ Method 1: Use Command Prompt During Setup**
+---
+- At the region selection screen, press Shift + F10 to open Command Prompt.
+- Type this command and hit Enter:
+
+    ```
+    oobe\bypassnro
+    ```
+
+- Your system will reboot. When it returns to setup:
+- Press Shift + F10 again.
+- Type:
+
+    ```
+    ipconfig /release
+    ```
+
+- This disables internet access.
+- Proceed with setup → choose “I don’t have internet” → then “Continue with limited setup”.
+- You’ll now be able to create a local account.
+---
+
+### **🧪 Method 2: Use Developer Console (Newer Builds)**
+---
+If the above doesn’t work (on newer builds), try:- Press Shift + F10 to open Command Prompt.
+- Type:
+
+    ```
+    start ms-cxh:localonly
+    ```
+
+- This launches the local account creation screen directly.
+---
+
+# Update all Installed Apps
+### Check Available Updates
+- Open CMD as Administrator and Run:
+    ```cmd
+        winget upgrade
+    ```
+- It will show all the upgradeable apps.
+### Upgrade Available Updates
+- To update all, run:
+    ```cmd
+        winget upgrade --all
+    ```
+- To update specific one, run:
+    ```cmd
+        winget upgrade --id "AppID"
+    ```
+- To update all except specific one or more, run:
+    ```cmd
+        winget upgrade | Where-Object { $_ -notmatch "AppName1|AppName2" } | ForEach-Object { $id = ($_ -split '\s{2,}')[0] winget upgrade --id "$id"}
+    ```
+---
